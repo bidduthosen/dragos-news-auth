@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiFillStar } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import { CiBookmark } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
@@ -7,7 +8,7 @@ import { IoEyeSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 const Category = ({ category }) => {
-    const { author, title, image_url, details,rating, total_view } = category || {};
+    const { author, title, image_url, details, rating, total_view } = category || {};
     return (
         <div className='mb-12 border-2 border-gray-200 rounded-md'>
             <div className='flex justify-between bg-gray-200 p-4'>
@@ -23,7 +24,7 @@ const Category = ({ category }) => {
                     <IoMdShare className='text-gray-500' size={26} />
                 </div>
             </div>
-            <div className='space-y-7 p-6'>
+            <div className='space-y-7 p-6 pb-0'>
                 <h3 className='font-bold text-2xl'>{title}</h3>
                 <img className='rounded-lg' src={image_url} alt="" />
                 <div>{details.length > 200 ?
@@ -38,17 +39,19 @@ const Category = ({ category }) => {
                 }</div>
                 <hr />
                 <div className='flex justify-between  p-2'>
-                    <div className='flex gap-3  items-center '>
-                        <FaStar className='text-[#FF8C47]' size={20}/>
-                        <FaStar className='text-[#FF8C47]' size={20}/>
-                        <FaStar className='text-[#FF8C47]' size={20}/>
-                        <FaStar className='text-[#FF8C47]' size={20}/>
-                        <p className='font-semibold text-gray-600'>{rating?.number}</p>
+                <div className="flex items-center">
+                        {[...Array(7)].map((_, i)=> <FaStar size={20} key={i} className={`text-yellow-500 ${ i < Math.round(rating.number) ? "" : "opacity-30"}`}/>)}
+                        <p className='font-semibold text-gray-600 ml-3'>{rating?.number}</p>
+
                     </div>
                     <div className='flex gap-3 items-center'>
-                        <IoEyeSharp  size={20} />
+                        <IoEyeSharp size={20} />
                         <p className='font-semibold text-gray-600'>{total_view}</p>
                     </div>
+                </div>
+
+                <div className="flex gap-3  items-center">
+                    
                 </div>
             </div>
         </div>
