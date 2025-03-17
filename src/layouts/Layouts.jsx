@@ -11,7 +11,7 @@ const Layouts = () => {
             <header>
                 {/* nav title */}
                 <NavTitle></NavTitle>
-                <div className='max-w-screen-xl mx-auto px-4 '>
+                <div className='max-w-screen-xl mx-auto px-4 hidden md:block'>
                     <LatestMarque></LatestMarque>
                 </div>
                 <div className='max-w-screen-xl mx-auto px-4'>
@@ -20,10 +20,10 @@ const Layouts = () => {
             </header>
             <main className='max-w-screen-xl mx-auto px-4'>
                 <section className='grid grid-cols-12 gap-4'>
-                    <aside className='col-span-4 md:col-span-3'>
+                    <aside className='col-span-12 md:col-span-3'>
                         <LeftNav></LeftNav>
                     </aside>
-                    <div className="main-section col-span-8 md:col-span-6">
+                    <div className="main-section col-span-12 md:col-span-6">
                         <Outlet></Outlet>
                     </div>
                     <aside className='col-span-12 md:col-span-3'></aside>
