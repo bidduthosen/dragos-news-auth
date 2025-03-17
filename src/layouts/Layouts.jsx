@@ -4,6 +4,7 @@ import LatestMarque from '../components/LatestMarque';
 import Navbar from '../Shared/Navbar';
 import { Outlet } from 'react-router-dom';
 import LeftNav from '../components/LeftNav';
+import RightNav from '../components/RightNav';
 
 const Layouts = () => {
     return (
@@ -11,14 +12,14 @@ const Layouts = () => {
             <header>
                 {/* nav title */}
                 <NavTitle></NavTitle>
-                <div className='max-w-screen-xl mx-auto px-4 hidden md:block'>
+                <div className='max-w-screen-2xl mx-auto px-4 hidden md:block'>
                     <LatestMarque></LatestMarque>
                 </div>
-                <div className='max-w-screen-xl mx-auto px-4'>
+                <div className='max-w-screen-2xl mx-auto px-4 mb-10'>
                     <Navbar></Navbar>
                 </div>
             </header>
-            <main className='max-w-screen-xl mx-auto px-4'>
+            <main className='max-w-screen-2xl mx-auto px-4'>
                 <section className='grid grid-cols-12 gap-4'>
                     <aside className='col-span-12 md:col-span-3'>
                         <LeftNav></LeftNav>
@@ -26,7 +27,9 @@ const Layouts = () => {
                     <div className="main-section col-span-12 md:col-span-6">
                         <Outlet></Outlet>
                     </div>
-                    <aside className='col-span-12 md:col-span-3'></aside>
+                    <aside className='col-span-12 md:col-span-3'>
+                        <RightNav></RightNav>
+                    </aside>
                 </section>
             </main>
 
