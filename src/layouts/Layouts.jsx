@@ -32,7 +32,6 @@ const Layouts = () => {
                     </aside>
                 </section>
             </main>
-
         </div>
     );
 };
