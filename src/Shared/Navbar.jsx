@@ -19,7 +19,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='flex justify-between items-center gap-2 space-y-9'>
+        <div className='flex justify-between items-center gap-2 space-y-5 md:mt-12 '>
             <div className="navleft">
                 {
                     user?.photoURL ?
