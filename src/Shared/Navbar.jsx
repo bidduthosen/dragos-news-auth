@@ -5,11 +5,12 @@ import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Navbar = () => {
 
-    const {name} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
+    
     return (
         <div className='flex justify-between items-center gap-2 space-y-9'>
             <div className="navleft">
-                <h4>{ name && name }</h4>
+                <h4 className='font-semibold'>User Email: { user && user?.email }</h4>
             </div>
             <div className=" link  space-x-3 no-underline">
                 <NavLink className='space-x-3 text-gray-600 hover:text-black' to={'/'}>Home</NavLink>

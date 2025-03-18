@@ -1,14 +1,23 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const SignUp = () => {
+    const {createUser} = useContext(AuthContext);
     const handleRegister = (e) =>{
         e.preventDefault()
         const form = new FormData(e.target)
         const name = form.get('name') 
         const email = form.get('email') 
         const password = form.get('password') 
-        console.log({name, email, password})
+        createUser(email, password)
+        .then(res =>{
+            console.log(res.user);
+            e.target.reset()
+        })
+        .catch(err =>{
+            console.log(err.massage)
+        })
     }
     return (
         <div className="card  flex mx-auto mt-16  w-full max-w-sm  ">
