@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-    const {loginUserEmail} = useContext(AuthContext);
+    const { loginUserEmail } = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState({})
+
+    const navigate = useNavigate()
+    const location = useLocation()
+
+
     const handleLogin = (e) => {
         e.preventDefault()
         const form = new FormData(e.target)
@@ -12,16 +18,17 @@ const Login = () => {
         const password = form.get('password')
 
         loginUserEmail(email, password)
-        .then(res=> {
-            console.log('toast')
-            e.target.reset()
-            toast.success('Congress!. user Login success.')
-        })
-        .catch(err =>{
-            toast.error(`${err.message}`)
-        })
+            .then(res => {
+                e.target.reset()
+                toast.success('Congress!. user Login success.')
+                navigate(location?.state ? location?.state : "/")
+            })
+            .catch(err => {
+                toast.error(`${err.code}`)
+                setErrorMessage({ ...errorMessage, login: err.code , user: err.message })
+            })
+    };
 
-    }
     return (
         <div className="card  flex mx-auto mt-16 w-full max-w-sm">
             <h1 className='text-center font-bold text-xl py-2'>Login!</h1>
@@ -35,6 +42,9 @@ const Login = () => {
                     <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
                 <br />
+                {
+                    <p className='text-red-500 font-serif text-xs text-center'>{errorMessage?.login}</p>
+                }
                 <hr />
                 <div className='text-center'>
                     Create a new account <Link to={'/auth/register'} className='underline text-red-500 ml-1'>Sign Up</Link>

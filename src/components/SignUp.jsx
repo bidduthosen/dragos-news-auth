@@ -1,25 +1,37 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
 const SignUp = () => {
-    const {createUser} = useContext(AuthContext);
-    const handleRegister = (e) =>{
+    const { createUser } = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState({})
+    const navigate = useNavigate()
+
+
+    const handleRegister = (e) => {
         e.preventDefault()
         const form = new FormData(e.target)
-        const name = form.get('name') 
-        const email = form.get('email') 
-        const password = form.get('password') 
+        const name = form.get('name')
+        const email = form.get('email')
+        const password = form.get('password')
+
+        if (name.length < 4) {
+            setErrorMessage({ ...errorMessage, name: 'must be 4 charecter latter' });
+            return
+
+        }
         createUser(email, password)
-        .then(res =>{
-            toast.success('Create user success.')
-            e.target.reset()
-        })
-        .catch(err =>{
-            toast.error(`${err.message}`)
-        })
+            .then(res => {
+                toast.success('Create user success.')
+                e.target.reset()
+                navigate('/')
+            })
+            .catch(err => {
+                // setErrorMessage({ ...errorMessage, signUp: err.code })
+            })
     }
+    console.log(errorMessage)
     return (
         <div className="card  flex mx-auto mt-16  w-full max-w-sm  ">
             <h1 className='text-center font-bold text-xl py-2'>Register Now!</h1>
@@ -34,6 +46,12 @@ const SignUp = () => {
                     <button className="btn btn-neutral mt-4">Register</button>
                 </fieldset>
                 <br />
+                {
+                    <p className='text-red-500 font-serif text-xs text-center'>{errorMessage?.name}</p>
+                }
+                {
+                    <p className='text-red-500 font-serif text-xs text-center'>{errorMessage?.signUp}</p>
+                }
                 <hr />
                 <div className='text-center'>
                     Already have an account, plz <Link to={'/auth'} className='underline text-red-500 ml-1'>Login</Link>

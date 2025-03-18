@@ -6,16 +6,16 @@ import toast from 'react-hot-toast';
 
 const Navbar = () => {
 
-    const { user,logOutUser } = useContext(AuthContext);
-    
-    const handleLogout = () =>{
+    const { user, logOutUser } = useContext(AuthContext);
+
+    const handleLogout = () => {
         logOutUser()
-        .then(()=>{
-            toast.success('Logout succes.')
-        })
-        .catch(err=>{
-            console.log(err.massage)
-        })
+            .then(() => {
+                toast.success('Logout success.')
+            })
+            .catch(err => {
+                console.log(err.massage)
+            })
     }
 
     return (
@@ -36,7 +36,10 @@ const Navbar = () => {
                             <Link onClick={handleLogout} to={'/auth'}> <button className='btn btn-warning  rounded-none px-7 font-bold text-xl'>LogOut</button></Link>
                         </div>
                         :
-                        <Link to={'/auth'}> <button className='btn btn-neutral rounded-none px-7 text-white font-bold text-xl'>Login</button></Link>
+                        <div className="flex items-center gap-4">
+                            <Link to={'/auth/register'}> <button className='btn btn-neutral rounded-none px-3 text-white font-bold text-xl'>Sign Up</button></Link>
+                            <Link to={'/auth'}> <button className='btn btn-neutral rounded-none px-7 text-white font-bold text-xl'>Login</button></Link>
+                        </div>
                 }
             </div>
         </div>
