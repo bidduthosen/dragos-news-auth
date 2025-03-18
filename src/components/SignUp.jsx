@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 const SignUp = () => {
     const handleRegister = (e) =>{
         e.preventDefault()
-        console.log(e.target)
+        const form = new FormData(e.target)
+        const name = form.get('name') 
+        const email = form.get('email') 
+        const password = form.get('password') 
+        console.log({name, email, password})
     }
     return (
         <div className="card  flex mx-auto mt-16  w-full max-w-sm  ">
             <h1 className='text-center font-bold text-xl py-2'>Register Now!</h1>
-            <form className="card-body">
+            <form onSubmit={handleRegister} className="card-body">
                 <fieldset className="fieldset">
                     <label className="fieldset-label">Name</label>
                     <input type="text" name='name' className="input" placeholder="Name" />

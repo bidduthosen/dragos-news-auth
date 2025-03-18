@@ -1,12 +1,16 @@
-import React from 'react';
-import { CgProfile } from 'react-icons/cg';
+import { useContext } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Navbar = () => {
+
+    const {name} = useContext(AuthContext);
     return (
         <div className='flex justify-between items-center gap-2 space-y-9'>
-            <div className="bg-purple-600 navleft"></div>
+            <div className="navleft">
+                <h4>{ name && name }</h4>
+            </div>
             <div className=" link  space-x-3 no-underline">
                 <NavLink className='space-x-3 text-gray-600 hover:text-black' to={'/'}>Home</NavLink>
                 <NavLink className='space-x-3 text-gray-600 hover:text-black' to={'/'}>News</NavLink>
