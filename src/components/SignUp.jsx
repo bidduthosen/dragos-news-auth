@@ -17,7 +17,7 @@ const SignUp = () => {
             e.target.reset()
         })
         .catch(err =>{
-            console.log(err.massage)
+            toast.error(`${err.message}`)
         })
     }
     return (

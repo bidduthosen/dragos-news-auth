@@ -18,7 +18,7 @@ const Login = () => {
             toast.success('Congress!. user Login success.')
         })
         .catch(err =>{
-            console.log(err.message)
+            toast.error(`${err.message}`)
         })
 
     }
