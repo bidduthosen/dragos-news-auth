@@ -4,7 +4,7 @@ import { AuthContext } from '../AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState({})
     const navigate = useNavigate()
 
@@ -13,8 +13,13 @@ const SignUp = () => {
         e.preventDefault()
         const form = new FormData(e.target)
         const name = form.get('name')
+        const photo = form.get('photo')
         const email = form.get('email')
         const password = form.get('password')
+        const updateUser = {
+            displayName: name,
+            photoURL: photo
+        };
 
         if (name.length < 4) {
             setErrorMessage({ ...errorMessage, name: 'must be 4 charecter latter' });
@@ -26,12 +31,15 @@ const SignUp = () => {
                 toast.success('Create user success.')
                 e.target.reset()
                 navigate('/')
+                updateUserProfile(updateUser)
+                    .then(() => {
+                        toast.success('Update Users')
+                    }).catch((err) => { console.error("updateUser", err.message) })
             })
             .catch(err => {
-                // setErrorMessage({ ...errorMessage, signUp: err.code })
+                toast.error(`${err.message}`)
             })
     }
-    console.log(errorMessage)
     return (
         <div className="card  flex mx-auto mt-16  w-full max-w-sm  ">
             <h1 className='text-center font-bold text-xl py-2'>Register Now!</h1>
@@ -39,6 +47,8 @@ const SignUp = () => {
                 <fieldset className="fieldset">
                     <label className="fieldset-label">Name</label>
                     <input type="text" name='name' className="input" placeholder="Name" />
+                    <label className="fieldset-label">Phot Url</label>
+                    <input type="text" name='photo' className="input" placeholder="Photo Url" />
                     <label className="fieldset-label">Email</label>
                     <input type="email" name='email' className="input" placeholder="Email" />
                     <label className="fieldset-label">Password</label>
