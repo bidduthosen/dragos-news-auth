@@ -1,6 +1,4 @@
 import React from 'react';
-import { AiFillStar } from 'react-icons/ai';
-import { BsEye } from 'react-icons/bs';
 import { CiBookmark } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import { IoMdShare } from 'react-icons/io';
@@ -8,14 +6,14 @@ import { IoEyeSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 const Category = ({ category }) => {
-    const { author, title, image_url, details, rating, total_view } = category || {};
+    const { author, title, image_url, details, rating, total_view, _id } = category || {};
     return (
         <div className='mb-12 border-2 border-gray-200 rounded-md'>
             <div className='flex justify-between bg-gray-200 p-4'>
                 <div className='flex gap-5  items-center '>
                     <img className='w-10 rounded-full' src={author?.img} alt="" />
                     <div>
-                        <h3 className='font-semibold text-lg uppercase'>{author?.name}</h3>
+                        <h3 className='font-semibold text-lg uppercase'>{author?.name ? author?.name : 'UnKnown'}</h3>
                         <h3 className='text-base font-medium text-gray-500'>{author?.published_date}</h3>
                     </div>
                 </div>
@@ -28,13 +26,14 @@ const Category = ({ category }) => {
                 <h3 className='font-bold text-2xl'>{title}</h3>
                 <img className='rounded-lg' src={image_url} alt="" />
                 <div>{details.length > 200 ?
-                    <div className=''>
+                    <div>
                         <h3 className='text-gray-600 font-light'>{details.slice(0, 200)}...</h3>
-                        <Link className='text-red-500 underline'>Read More</Link>
+                        <Link to={`/news/${_id}`} className='text-red-500 underline'>Read More</Link>
                     </div>
                     :
                     <div>
                         <h3 className='text-gray-600 font-light'>{details}</h3>
+                        <Link to={`/news/${_id}`} className='text-red-500 underline'>Read More</Link>
                     </div>
                 }</div>
                 <hr />
